@@ -1,0 +1,108 @@
+# ==========================================
+# 🐍 Python & uv Build System
+# ==========================================
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# uv & Project Lockfiles
+# Note: Keep uv.lock tracked if you want deterministic builds, 
+# but ignore it if this is a loose workspace/assignment.
+# uv.lock
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipyp_checkpoints/
+
+# Python distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==========================================
+# 🛠️ C++ & Make Build System
+# ==========================================
+
+# Compiled Object files
+*.o
+*.obj
+*.gch
+*.pch
+
+# Compiled Dynamic / Static Libraries
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Build Directories (Common for Make/CMake outputs)
+bin/
+obj/
+out/
+build_cpp/
+
+# Executables
+# (If your Makefiles compile to specific binary names, add them explicitly here)
+*.exe
+*.out
+*.app
+
+# ==========================================
+# 📊 Datasets & Performance Benchmarks
+# ==========================================
+
+# Big datasets or generated test inputs/outputs
+# Uncomment below if your 'dataset/' directory contains raw source files you WANT to track.
+# dataset/large_inputs/
+*.csv
+*.json
+*.txt
+*.dat
+*.log
+!requirements.txt
+
+# Profiling and performance outputs (e.g., gprof)
+gmon.out
+
+# ==========================================
+# 💻 OS & IDE Metadata
+# ==========================================
+
+# macOS Metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows Metadata
+Thumbs.db
+Ehthumbs.db
+Desktop.ini
+
+# IDEs (VS Code, CLion, PyCharm)
+.vscode/
+.idea/
+*.swp
+*.swo

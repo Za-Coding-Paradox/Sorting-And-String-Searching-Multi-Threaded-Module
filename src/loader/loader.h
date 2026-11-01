@@ -66,6 +66,7 @@ public:
                   int helpfulnessDenominator;
                   int score;
                   float ratio;
+                  long long timestamp;
 
                   // Read the first cell (productId)
                   std::getline(dataset, productId, ',');
@@ -75,7 +76,7 @@ public:
                   std::strcpy(dataFrame->productId[j], productId.c_str());
 
                   // Read the next cells (helpfulnessNumerator,
-                  // helpfulnessDenominator, score, ratio)
+                  // helpfulnessDenominator, score, ratio, timestamp)
                   dataset >> dataFrame->helpfulnesssNumerator[j];
                   dataset.ignore(); // Ignore the comma
                   dataset >> dataFrame->helpfulnessDenominator[j];
@@ -83,6 +84,8 @@ public:
                   dataset >> dataFrame->score[j];
                   dataset.ignore(); // Ignore the comma
                   dataset >> dataFrame->ratio[j];
+                  dataset.ignore(); // Ignore the comma
+                  dataset >> dataFrame->timestamp[j];
 
                   // Ignore the rest of the line to move to the next row
                   dataset.ignore(std::numeric_limits<std::streamsize>::max(),

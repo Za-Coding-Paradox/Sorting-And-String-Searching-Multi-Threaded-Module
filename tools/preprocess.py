@@ -5,7 +5,7 @@ A line-based, comma-splitting C++ loader cannot parse that safely, so pandas (a 
 does the cleaning once, and the C++ side reads a plain, trivially splittable file.
 
 Writes two files:
-  <out>.csv       ProductId,HelpfulnessNumerator,HelpfulnessDenominator,Score,Ratio
+  <out>.csv       ProductId,HelpfulnessNumerator,HelpfulnessDenominator,Score,Ratio,Time
   <out>.expected  key=value reference values the C++ binary checks itself against (`make verify`)
 
 usage: python tools/preprocess.py [raw.csv] [clean.csv]
@@ -58,16 +58,19 @@ def main() -> int:
     den = df.HelpfulnessDenominator.astype("int64")
     score = df.Score.astype("int64")
     ratio = num / den
+    time = df.Time.astype("int64")
 
     out.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame({"ProductId": df.ProductId.astype(str), "HelpfulnessNumerator": num,
-                  "HelpfulnessDenominator": den, "Score": score, "Ratio": ratio}
+                  "HelpfulnessDenominator": den, "Score": score, "Ratio": ratio,
+                  "Time": time}
                  ).to_csv(out, index=False, float_format="%.9g")   # 9 sig. digits round-trips float32
 
     expected = out.with_suffix(".expected")
     expected.write_text(
         f"rows={len(df)}\nnum_sum={int(num.sum())}\nden_sum={int(den.sum())}\n"
         f"score_sum={int(score.sum())}\nratio_sum={float(ratio.sum())!r}\n"
+        f"time_sum={int(time.sum())}\n"
         f"id_hash={id_hash(df.ProductId.astype(str))}\n")
     print(f"wrote {out} and {expected}")
     return 0

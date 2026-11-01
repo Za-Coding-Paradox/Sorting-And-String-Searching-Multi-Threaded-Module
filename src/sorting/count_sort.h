@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace mth_css {
-auto countSort(DataFrame *df, const auto &dataChunks) -> std::vecotr<int> {
+auto countSort(DataFrame *df, const auto &dataChunks) -> std::vector<int> {
   int numThreads = std::min(NUM_THREADS, (int)dataChunks.size());
   int numChunksPerThread = std::max(1, (int)dataChunks.size() / NUM_THREADS);
 

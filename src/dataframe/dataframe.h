@@ -13,6 +13,7 @@ public:
   int *helpfulnessDenominator;
   int *score;
   float *ratio;
+  long long *timestamp; // unix seconds
   int rowCount;
 
   DataFrame() {
@@ -23,6 +24,7 @@ public:
     helpfulnessDenominator = new int[rowCount];
     score = new int[rowCount];
     ratio = new float[rowCount];
+    timestamp = new long long[rowCount];
   }
 
   ~DataFrame() {
@@ -34,6 +36,7 @@ public:
     delete[] helpfulnessDenominator;
     delete[] score;
     delete[] ratio;
+    delete[] timestamp;
   }
 
   auto getRowCount() -> int {

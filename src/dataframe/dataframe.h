@@ -11,9 +11,10 @@ class DataFrame {
   int *helpfulnessDenominator;
   int *score;
   float *ratio;
+  int rowCount;
 
   auto DataFrame() -> void {
-    int rowCount = getRowCount();
+    rowCount = getRowCount();
 
     productId = new char *[rowCount];
     helpfulnesssNumerator = new int[rowCount];

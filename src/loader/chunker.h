@@ -1,3 +1,4 @@
+#pragma once
 #include "../loader/loader.h"
 #include <iostream>
 #include <vector>
@@ -5,33 +6,37 @@
 namespace mth_css {
 class Chunker {
 private:
-  std::vector<std::vector<DataFrame>> dataChunks;
+  // each chunk holds row indexes into the DataFrame (DataFrame stores columns,
+  // so a "row" is just its index)
+  std::vector<std::vector<int>> dataChunks;
   int numberOfChunks;
   int sizeOfChunk;
 
   Loader sysLoader;
 
 public:
-  auto Chunker(int numChunks, int chunkSize) -> void
-      : numberOfChunks(numChunks),
-        sizeOfChunk(chunkSize) {}
+  Chunker(int numChunks, int chunkSize)
+      : numberOfChunks(numChunks), sizeOfChunk(chunkSize) {}
+
+  auto getDataFrame() -> DataFrame * { return sysLoader.getDataFrame(); }
 
   auto createChunks() -> void {
-    // Get the DataFrame pointer
-    auto dataFrame = sysLoader->getDataFrame();
-    int rowCount = dataFrame->rowCount;
-    int chunkSize = rowCount / sizeOfChunk;
+    sysLoader.loadData(); // nothing else ever fills the DataFrame
 
-    dataChunks.reserve(numberOfChunks);
+    // Get the DataFrame pointer
+    auto dataFrame = sysLoader.getDataFrame();
+    int rowCount = dataFrame->rowCount;
+
+    dataChunks.resize(numberOfChunks);
     for (int i{0}; i < numberOfChunks; ++i) {
-      dataChunks[i].reserve(sizeOfChunk);
-      memcopy(&dataChunks[i], dataFrame + (sizeOfChunk * i),
-              sizeOfChunk * sizeof(DataFrame));
+      int start = sizeOfChunk * i;
+      int end = std::min(start + sizeOfChunk, rowCount);
+      for (int j = start; j < end; ++j) {
+        dataChunks[i].push_back(j);
+      }
     }
   }
 
-  auto getDataChunks() -> std::vector<std::vector<DataFrame>> {
-    return dataChunks;
-  }
-}
+  auto getDataChunks() -> std::vector<std::vector<int>> { return dataChunks; }
+};
 } // namespace mth_css

@@ -10,7 +10,7 @@ print("raw rows:", len(df))
 # Drop rows with missing values in critical columns and drop unnecessary columns
 df = df.dropna(subset=["ProductId", "Score", "Time",
                        "HelpfulnessNumerator", "HelpfulnessDenominator", "Text"])
-df = df.dropcolumns(["Id", "UserId", "ProfileName", "Summary"])
+df = df.drop(columns=["Id", "UserId", "ProfileName", "Summary"])
 print("after dropna:", len(df))
 
 df = df[df.HelpfulnessDenominator > 0]

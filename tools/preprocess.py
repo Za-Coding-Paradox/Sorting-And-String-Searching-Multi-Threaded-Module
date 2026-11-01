@@ -34,7 +34,7 @@ def clean(df: pd.DataFrame):
 
 def id_hash(ids) -> int:
     """64-bit FNV-1a over each id followed by '\\n', in row order. Must match DataFrame::summarize()."""
-    h, mask = 1469598103934665603, (1 << 64) - 1
+    h, mask = 14695981039346656037, (1 << 64) - 1
     for s in ids:
         for b in (s + "\n").encode():
             h = ((h ^ b) * 1099511628211) & mask

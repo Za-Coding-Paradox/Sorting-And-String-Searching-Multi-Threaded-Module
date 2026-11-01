@@ -1,21 +1,26 @@
-#include "../dataframe/dataframe.h>
+#pragma once
+#include "../dataframe/dataframe.h"
+#include <cstring>
+#include <iostream>
+#include <limits>
+#include <string>
+#include <vector>
 
 namespace mth_css {
 class Loader {
   DataFrame *dataFrame;
 
-  auto Loader() -> void { dataFrame = new DataFrame(); }
+public:
+  Loader() { dataFrame = new DataFrame(); }
 
   auto getDataFrame() -> DataFrame * { return dataFrame; }
 
   auto loadData() -> void {
     // Read the dataset and populate the DataFrame object
-    const int rowCount = dataFrame->getRowCount();
+    const int rowCount = dataFrame->rowCount;
 
     // Create the list of threads
-    auto threadList->std::vector<std::thread> {
-      return std::vector<std::thread>(NUM_THREADS);
-    };
+    std::vector<std::jthread> threadList(NUM_THREADS);
 
     // Launch threads to read the dataset in parallel
     for (int i{0}; i < NUM_THREADS; ++i) {
@@ -89,6 +94,6 @@ class Loader {
     }
   }
 
-  auto ~Loader() -> void { delete dataFrame; }
-}
+  ~Loader() { delete dataFrame; }
+};
 } // namespace mth_css

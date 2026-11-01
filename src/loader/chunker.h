@@ -32,7 +32,8 @@ public:
       int start = sizeOfChunk * i;
       int end = std::min(start + sizeOfChunk, rowCount);
       for (int j = start; j < end; ++j) {
-        dataChunks[i].push_back(j);
+        dataChunks[i].push_back(
+            j); // accessing two dimensional vector via 1D access methods
       }
     }
   }

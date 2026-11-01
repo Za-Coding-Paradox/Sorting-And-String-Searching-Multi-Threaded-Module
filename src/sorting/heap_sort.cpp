@@ -16,10 +16,12 @@ auto heapify(std::vector<int> &heapArray, DataFrame *df, int i,
   int parent = (i - 1) / 2;
 
   if (typeOfHeap == HeapType::MIN &&
-      df->ratio[heapArray[parent]] > df->ratio[heapArray[i]]) {
+      df->helpfulnessDenominator[heapArray[parent]] >
+          df->helpfulnessDenominator[heapArray[i]]) {
     std::swap(heapArray[parent], heapArray[i]);
   } else if (typeOfHeap == HeapType::MAX &&
-             df->ratio[heapArray[parent]] < df->ratio[heapArray[i]]) {
+             df->helpfulnessDenominator[heapArray[parent]] <
+                 df->helpfulnessDenominator[heapArray[i]]) {
     std::swap(heapArray[parent], heapArray[i]);
   }
 

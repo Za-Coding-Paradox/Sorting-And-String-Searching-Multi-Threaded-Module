@@ -14,6 +14,7 @@ public:
   int *score;
   float *ratio;
   long long *timestamp; // unix seconds
+  char **text;          // cleaned single-line review text
   int rowCount;
 
   DataFrame() {
@@ -25,11 +26,13 @@ public:
     score = new int[rowCount];
     ratio = new float[rowCount];
     timestamp = new long long[rowCount];
+    text = new char *[rowCount]();
   }
 
   ~DataFrame() {
     for (int i = 0; i < rowCount; ++i) {
       delete[] productId[i];
+      delete[] text[i];
     }
     delete[] productId;
     delete[] helpfulnesssNumerator;
@@ -37,6 +40,7 @@ public:
     delete[] score;
     delete[] ratio;
     delete[] timestamp;
+    delete[] text;
   }
 
   auto getRowCount() -> int {
